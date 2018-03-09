@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ross</groupId>
+  <artifactId>JmxDynamicMBean</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <camel.version>2.5.0</camel.version>
+    <activemq.version>5.3.0</activemq.version>
+    <cxf.version>2.2.11</cxf.version>
+    <spring.version>3.0.5.RELEASE</spring.version>
+    <log4j.version>1.2.16</log4j.version>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>   
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils-core</artifactId>
+      <version>1.8.3</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+      <!--<scope>runtime</scope>-->
+    </dependency>    
+  </dependencies>
+  <build>
+      <plugins>
+          <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+          </plugin>
+          <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</argLine>
+
+
+                    <arguments>
+		           <argument>-classpath</argument>
+		           <classpath />
+			   <argument>Hello</argument>
+                    </arguments>
+                    
+                    <systemPropertyVariables>
+			<xxx>xxx</xxx>
+                    </systemPropertyVariables>
+
+                    <skip>false</skip>
+         
+         	    <includes>
+                        <include>**/*UnitTest.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*$*</exclude>
+                    </excludes>
+                    <enableAssertions>false</enableAssertions>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>target/classes</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                            <enableAssertions>false</enableAssertions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+      </plugins>
+  </build>
+  <profiles>
+      <profile>
+         <id>CXF</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <build>
+            <plugins>
+                <plugin>
+                 <groupId>org.codehaus.mojo</groupId>
+                 <artifactId>exec-maven-plugin</artifactId>
+                 <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                       <argument>-classpath</argument>
+                       <classpath />
+			   <argument>-Dcom.sun.management.jmxremote</argument>
+	                   <argument>com.jmx.extension.MyTestExtension</argument>
+                    </arguments>
+                 </configuration>
+                </plugin>
+            </plugins>
+         </build>
+      </profile>
+  </profiles>
+</project>

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/default/!svn/ver/111/trunk/java/trunk/commons/trunk/JmxMBeans/src/main/java/com/extension/jmx/api
+END
+ICalculator.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/default/!svn/ver/111/trunk/java/trunk/commons/trunk/JmxMBeans/src/main/java/com/extension/jmx/api/ICalculator.java
+END
+IMyDynamicMBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/default/!svn/ver/111/trunk/java/trunk/commons/trunk/JmxMBeans/src/main/java/com/extension/jmx/api/IMyDynamicMBean.java
+END
